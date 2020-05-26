@@ -5,15 +5,12 @@ output:
     keep_md: true
 ---
 
-```{r}
-knitr::opts_chunk$set(echo=TRUE)
-```
-
 ## Loading and preprocessing the data
 ```{r}
 activity <- read.csv("activity.csv", header = TRUE)
-
+```
 ## What is mean total number of steps taken per day?
+```{r}
 totalsteps <- aggregate(steps ~ date, activity, sum)
 hist(totalsteps$steps, main="Total Number of Steps per Day", col = "blue" ,xlab= "Number of Steps" )
 ```
@@ -30,7 +27,7 @@ median(totalsteps$steps)
 library(ggplot2)
 meanstep <- aggregate(steps ~ interval, activity, mean)
 ggplot(data = meanstep, aes(x=interval, y= steps))+geom_line(color="blue")+ggtitle("Average Daily Activity Pattern")+xlab("5-minute Interval")+ylab("Average Number of Steps")+theme(plot.title = element_text(hjust = 0.5))
-maxstep <- meanstep[which.max(meanstep$steps),]
+meanstep[which.max(meanstep$steps),]
 ```
 
 ## Imputing missing values
@@ -49,7 +46,7 @@ hist(filledin$steps, main= "Total Numbers of Steps per Day - Imputed", col="gree
 ```
 
 #Calculate and report the mean and median total number of steps taken per day
-```{R}
+```{r}
 round(mean(filledin$steps))
 median(filledin$steps)
 ```
